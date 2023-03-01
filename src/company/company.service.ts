@@ -26,7 +26,7 @@ export class CompanyService {
         return await this.companyModel.find()
     }
 
-    async udpate(id: ObjectId, dto: UpdateCompanyDto): Promise<Company> {
+    async update(id: ObjectId, dto: UpdateCompanyDto): Promise<Company> {
         return await this.companyModel.findByIdAndUpdate(id, {...dto})
     }
 

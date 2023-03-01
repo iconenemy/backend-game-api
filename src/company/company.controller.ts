@@ -50,6 +50,6 @@ export class CompanyController {
         const candidateById = await this.CompanyService.findOne(id)
         if(!candidateById) throw new NotFoundException(`Sorry, such id ${id} - not found. Try again`)
 
-        return await this.CompanyService.udpate(id, dto)
+        return await this.CompanyService.update(id, dto)
     }
 }
