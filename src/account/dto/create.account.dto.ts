@@ -1,19 +1,30 @@
-import { IsNotEmpty } from 'class-validator'
-import { Types } from 'mongoose';
+import { ObjectId } from 'mongoose';
+import { createZodDto } from 'nestjs-zod'
+import { z } from 'nestjs-zod/z'
 
-export class CreateAccountDto {
-    @IsNotEmpty()
-    readonly name: string;
+const accountValidateSchema = z.object({
+    name: z.string({
+            required_error: 'Name is required',
+            invalid_type_error: "Name must be a string"
+        }).min(4, { 
+            message: "Name must be 4 or more characters long" 
+        })
+        .max(30, {
+             message: "Name must be 30 or fewer characters long" 
+        }),
 
-    @IsNotEmpty()
-    readonly company: Types.ObjectId;
+    company: z.any(),
 
-    @IsNotEmpty()
-    readonly price: number;
+    price: z.number({
+            required_error: "Price is required",
+            invalid_type_error: "Price must be not a number",
+        }).gte(5, {
+            message: "Price must be greater or equal to 5"
+        }),
+        
+    currency: z.enum(['$', '€']),
 
-    @IsNotEmpty()
-    readonly currency: string;
+    is_paid: z.boolean().default(true)
+})
 
-    @IsNotEmpty()
-    readonly is_paid: boolean;
-}
+export class CreateAccountDto extends createZodDto(accountValidateSchema) {}
