@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { APP_PIPE } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CompanyModule } from './company/company.module';
+import { ZodValidationPipe } from 'nestjs-zod'
 
+import { AccountModule } from './account/account.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
@@ -10,7 +13,9 @@ import { CompanyModule } from './company/company.module';
       envFilePath: '.env'
     }),
     MongooseModule.forRoot(process.env.MONGO_DB_CONNECTION),
-    CompanyModule
+    CompanyModule,
+    AccountModule
   ],
+  providers: [{provide: APP_PIPE, useClass: ZodValidationPipe}]
 })
 export class AppModule {}
