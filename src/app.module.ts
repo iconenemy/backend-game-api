@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CompanyModule } from './company/company.module';
 
+import { AccountModule } from './account/account.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
@@ -10,7 +11,8 @@ import { CompanyModule } from './company/company.module';
       envFilePath: '.env'
     }),
     MongooseModule.forRoot(process.env.MONGO_DB_CONNECTION),
-    CompanyModule
+    CompanyModule,
+    AccountModule
   ],
 })
 export class AppModule {}
