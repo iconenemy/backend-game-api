@@ -3,6 +3,7 @@ import { ObjectId } from "mongoose";
 import { CompanyService } from "src/company/company.service";
 import { AccountService } from "./account.service";
 import { CreateAccountDto } from "./dto/create.account.dto";
+import { FindAccountDto } from "./dto/find.by.name.accounts.dto";
 import { UpdateAccountDto } from "./dto/update.account.dto";
 
 @Controller('account')
@@ -53,5 +54,12 @@ export class AccountController {
         }
         
         return await this.AccountService.update(id, dto)
+    }
+
+    @Post('name/find')
+    async findByNames(@Body() dto: FindAccountDto) {
+       const { company } = dto
+       if (company.length > 0) return await this.AccountService.findByCompaniesName(company)
+       return await this.AccountService.findAll()
     }
 }

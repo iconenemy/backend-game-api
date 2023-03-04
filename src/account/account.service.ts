@@ -22,10 +22,14 @@ export class AccountService {
     }
 
     async update(id: ObjectId, dto: UpdateAccountDto): Promise<Account> {
-        return  await this.accountModel.findByIdAndUpdate(id,{...dto, createdAt: new Date(0)}, {new: true})
+        return  await this.accountModel.findByIdAndUpdate(id, {...dto, createdAt: new Date(0)}, {new: true})
     }
 
     async delete(id: ObjectId): Promise<void> {
         return await this.accountModel.findByIdAndDelete(id)
+    }
+
+    async findByCompaniesName(companies_id: ObjectId[]): Promise<Account[]> {
+        return await this.accountModel.find({company: {$in: companies_id}})
     }
 }
