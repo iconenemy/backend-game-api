@@ -46,10 +46,12 @@ export class AccountController {
         const candidateById = await this.AccountService.findOne(id)
         if(!candidateById) throw new NotFoundException(`Sorry, such id ${id} - not found. Try again`)
 
-        const company: ObjectId = dto.company
-        const candidateByCompany = await this.CompanyService.findOne(company)
-        if (!candidateByCompany) throw new NotFoundException(`Sorry, such company id ${company} - not found. Try again`)
-
+        const company: ObjectId = dto?.company
+        if (company) {
+            const candidateByCompany = await this.CompanyService.findOne(company)
+            if (!candidateByCompany) throw new NotFoundException(`Sorry, such company id ${company} - not found. Try again`)
+        }
+        
         return await this.AccountService.update(id, dto)
     }
 }
