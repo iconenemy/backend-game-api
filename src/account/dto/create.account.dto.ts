@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongoose';
 import { createZodDto } from 'nestjs-zod'
 import { z } from 'nestjs-zod/z'
 
@@ -24,7 +23,7 @@ const accountValidateSchema = z.object({
         
     currency: z.enum(['$', '€']),
 
-    is_paid: z.boolean().default(true)
+    is_paid: z.boolean().default(false)
 })
 
 export class CreateAccountDto extends createZodDto(accountValidateSchema) {}

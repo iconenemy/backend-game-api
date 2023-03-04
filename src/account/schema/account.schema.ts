@@ -18,7 +18,7 @@ export class Account {
   @Prop({default: '$', enum: ['$', '€'], required: true})
   currency: string
 
-  @Prop({default: true})
+  @Prop({default: false})
   is_paid: boolean
 }
 

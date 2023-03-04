@@ -22,7 +22,7 @@ export class AccountService {
     }
 
     async update(id: ObjectId, dto: UpdateAccountDto): Promise<Account> {
-        return await this.accountModel.findByIdAndUpdate(id,{...dto})
+        return  await this.accountModel.findByIdAndUpdate(id,{...dto, createdAt: new Date(0)}, {new: true})
     }
 
     async delete(id: ObjectId): Promise<void> {
